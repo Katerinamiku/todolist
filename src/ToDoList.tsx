@@ -1,42 +1,41 @@
-import React from "react";
+import React from 'react';
+import {FilterValueType} from "./App";
 
-type ToDoListPropsType = {
-    title?: string
-    task: Array<TaskPropsType>
-}
-
-type TaskPropsType={
+type TaskType = {
     id: number
     title: string
     isDone: boolean
 }
 
-export const ToDoList = (props:ToDoListPropsType) => {
-    return (
-        <div>
-            <h3>{props.title}</h3>
-            <div>
-                <input/>
-                <button>+</button>
-            </div>
-            <ul>
-                {props.task.map(el=> {
-                    return (
-                        <li><input type="checkbox" checked={props.task[0].isDone}/> <span>{props.task[0].title}</span></li>
-                    )
-                })}
-                {/*<li><input type="checkbox" checked={props.task[0].isDone}/> <span>{props.task[0].title}</span></li>*/}
-                {/*<li><input type="checkbox" checked={props.task[1].isDone}/> <span>{props.task[1].title}</span></li>*/}
-                {/*<li><input type="checkbox" checked={props.task[2].isDone}/> <span>{props.task[2].title}</span></li>*/}
-            </ul>
-            <div>
-                <button>All</button>
-                <button>Active</button>
-                <button>Completed</button>
-            </div>
-        </div>
-    );
+type PropsType = {
+    title: string
+    tasks: Array<TaskType>
+    removeTask: (taskId: number) => void
+    changeFilter: (value: FilterValueType) => void
 }
 
-//создать новый пролект, засунуть в него свой src с этого зантия, полукчить два одлимнгаковыхз проекта. - учимся
-// делать src
+export function Todolist(props: PropsType) {
+    return <div>
+        <h3>{props.title}</h3>
+        <div>
+            <input/>
+            <button>+</button>
+        </div>
+        <ul>
+            {props.tasks.map((el, index) => {
+                return (
+                    <li key={el.id}>
+                        <button onClick={() => props.removeTask(el.id)}> X</button>
+                        <input type="checkbox" checked={el.isDone}/>
+                        <span>{el.title}</span>
+                    </li>
+                )
+            })}
+        </ul>
+        <div>
+            <button onClick={() => props.changeFilter('all')}>All</button>
+            <button onClick={() => props.changeFilter('active')}>Active</button>
+            <button onClick={() => props.changeFilter('completed')}>Completed</button>
+        </div>
+    </div>
+}
