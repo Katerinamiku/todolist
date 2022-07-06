@@ -2,9 +2,9 @@ import React, {useState} from 'react';
 import './App.css';
 import TodoList, {TaskType} from "./Todolist";
 import {v1} from "uuid";
-import AddItemForm from "./AddItemForm";
 import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from "@material-ui/core";
 import {Menu} from "@material-ui/icons";
+import AddingInput from "./AddingInput";
 
 // CRUD
 // create ++
@@ -17,11 +17,9 @@ type TodoListType = {
     title: string
     filter: FilterValuesType
 }
-
 type TaskStateType = {
     [todolistID: string]: Array<TaskType>
 }
-
 export type FilterValuesType = "all" | "active" | "completed"
 
 function App() {
@@ -44,7 +42,7 @@ function App() {
             {id: v1(), title: "Meat", isDone: true},
         ],
     })
-
+//--------------------------------Functions------------------------
     const removeTask = (taskID: string, todolistID: string) => {
         setTasks({...tasks, [todolistID]: tasks[todolistID].filter(t => t.id !== taskID)})
     }
@@ -68,7 +66,6 @@ function App() {
             [todolistID]: tasks[todolistID].map(t => t.id === taskID ? {...t, title: title} : t)
         })
     }
-
     const changeTodoListFilter = (filter: FilterValuesType, todolistID: string) => {
         setTodolists(todolists.map(tl => tl.id === todolistID ? {...tl, filter: filter} : tl))
     }
@@ -84,7 +81,7 @@ function App() {
         setTodolists([{id: newTodoListID, title, filter: "all"}, ...todolists])
         setTasks({...tasks, [newTodoListID]: []})
     }
-    // UI:
+    // -----------------------UI---------------------------------
     const todolistsComponents = todolists.map(tl => {
         let tasksForRender;
         switch (tl.filter) {
@@ -110,7 +107,6 @@ function App() {
                         removeTask={removeTask}
                         changeTaskTitle={changeTaskTitle}
                         changeTaskStatus={changeTaskStatus}
-
                         removeTodolist={removeTodolist}
                         changeTodoListTitle={changeTodoListTitle}
                         changeTodoListFilter={changeTodoListFilter}
@@ -129,11 +125,14 @@ function App() {
                     <Typography variant="h6">
                         Todolists
                     </Typography>
-                    <Button color="inherit" variant={"outlined"}>Login</Button>
+                    <div><Button color="inherit" variant={"outlined"} style={{margin: '5px'}}>Login</Button>
+                        <Button color="inherit" variant={"outlined"} style={{margin: '5px'}}>Sign in</Button>
+                    </div>
+
                 </Toolbar>
             </AppBar>
             <Container fixed>
-                <Grid container style={{padding: "20px 0"}}> <AddItemForm addItem={addTodoList}/></Grid>
+                <Grid container style={{padding: "20px 0"}}> <AddingInput addItem={addTodoList}/></Grid>
                 <Grid container spacing={4}>{todolistsComponents}</Grid>
             </Container>
         </div>
