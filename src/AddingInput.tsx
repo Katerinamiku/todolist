@@ -1,9 +1,13 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from "react";
+import {Button, TextField} from "@material-ui/core";
+import {AddCircleOutline} from "@material-ui/icons";
+import s from './Todolist.module.css';
 
 type AddingInputPropsType = {
     addItem: (title: string) => void
 
 }
+
 function AddingInput(props: AddingInputPropsType) {
 
     let [title, setTitle] = useState("")
@@ -27,14 +31,27 @@ function AddingInput(props: AddingInputPropsType) {
             setError("Title is required");
         }
     }
-    return  <div>
-        <input value={title}
-               onChange={onChangeHandler}
-               onKeyPress={onKeyPressHandler}
-               className={error ? "error" : ""}
+    return <div>
+        <TextField value={title}
+                   onChange={onChangeHandler}
+                   onKeyDown={onKeyPressHandler}
+                   hiddenLabel
+                   defaultValue="Small"
+                   variant="outlined"
+                   size="small"
+                   error={!!error}
+                   label="Enter name"
+                   helperText={error}
         />
-        <button onClick={addItem}>+</button>
-        {error && <div className="error-message">{error}</div>}
+
+        <Button size={'small'}
+                color={'secondary'}
+                variant={'contained'}
+                disableElevation
+                onClick={addItem}
+                style={{margin: '10px'}}
+                startIcon={<AddCircleOutline/>}
+        >Add</Button>
     </div>
 }
 

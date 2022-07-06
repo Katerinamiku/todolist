@@ -1,9 +1,10 @@
-import React, {useState, KeyboardEvent, ChangeEvent} from 'react';
+import React, {ChangeEvent} from 'react';
 import {FilterValuesType} from "./App";
-import AddItemForm from "./AddItemForm";
+
 import EditableSpan from "./EditableSpan";
 import {Button, Checkbox, IconButton, List, ListItem} from "@material-ui/core";
-import {Close, DeleteForever, DeleteOutlined, DeleteRounded} from "@material-ui/icons";
+import {Close, DeleteForever, Favorite, FavoriteBorder} from "@material-ui/icons";
+import AddingInput from "./AddingInput";
 
 export type TaskType = {
     id: string
@@ -40,7 +41,8 @@ const TodoList = (props: TodoListPropsType) => {
                           className={t.isDone ? "task isDone" : "task"}
                           divider
                 >
-                    <Checkbox size={'small'} onChange={changeTaskStatus} checked={t.isDone}/>
+                    <Checkbox icon={<FavoriteBorder />} checkedIcon={<Favorite />} color={'primary'}/>
+                    <Checkbox size={'small'} onChange={changeTaskStatus} checked={t.isDone} />
 
                     <EditableSpan title={t.title} changeTitle={changeTaskTitle}/>
                     <IconButton size={'small'} onClick={removeTask}><Close/></IconButton>
@@ -63,7 +65,7 @@ const TodoList = (props: TodoListPropsType) => {
                 <EditableSpan title={props.title} changeTitle={changeTodoListTitle}/>
                 <IconButton onClick={removeTodolist}><DeleteForever/></IconButton>
             </h3>
-            <AddItemForm addItem={addTask}/>
+            <AddingInput addItem={addTask}/>
             <List>
                 {tasksJSX}
             </List>
@@ -74,6 +76,7 @@ const TodoList = (props: TodoListPropsType) => {
                         disableElevation
                         className={props.filter === "all" ? "active" : ""}
                         onClick={createOnClickHandler("all")}
+                        style={{margin: '10px'}}
                 >All
                 </Button>
                 <Button size={'small'}
@@ -82,6 +85,7 @@ const TodoList = (props: TodoListPropsType) => {
                         disableElevation
                         className={props.filter === "active" ? "active" : ""}
                         onClick={createOnClickHandler("active")}
+                        style={{margin: '10px'}}
                 >Active
                 </Button>
                 <Button size={'small'}
@@ -90,6 +94,7 @@ const TodoList = (props: TodoListPropsType) => {
                         disableElevation
                         className={props.filter === "completed" ? "active" : ""}
                         onClick={createOnClickHandler("completed")}
+                        style={{margin: '10px'}}
                 >Completed
                 </Button>
             </div>
