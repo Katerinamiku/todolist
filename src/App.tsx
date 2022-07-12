@@ -6,13 +6,8 @@ import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography}
 import {Menu} from "@material-ui/icons";
 import AddingInput from "./AddingInput";
 
-// CRUD
-// create ++
-// read ++
-// update +
-// delete ++
 
-type TodoListType = {
+export type TodoListType = {
     id: string
     title: string
     filter: FilterValuesType
@@ -47,23 +42,15 @@ function App() {
         setTasks({...tasks, [todolistID]: tasks[todolistID].filter(t => t.id !== taskID)})
     }
     const addTask = (title: string, todolistID: string) => {
-        const newTask: TaskType = {
-            id: v1(),
-            title: title,
-            isDone: false
-        }
+        const newTask: TaskType = {id: v1(), title: title, isDone: false}
         setTasks({...tasks, [todolistID]: [newTask, ...tasks[todolistID]]})
     }
     const changeTaskStatus = (taskID: string, isDone: boolean, todolistID: string) => {
-        setTasks({
-            ...tasks,
-            [todolistID]: tasks[todolistID].map(t => t.id === taskID ? {...t, isDone: isDone} : t)
+        setTasks({...tasks, [todolistID]: tasks[todolistID].map(t => t.id === taskID ? {...t, isDone: isDone} : t)
         })
     }
     const changeTaskTitle = (taskID: string, title: string, todolistID: string) => {
-        setTasks({
-            ...tasks,
-            [todolistID]: tasks[todolistID].map(t => t.id === taskID ? {...t, title: title} : t)
+        setTasks({...tasks, [todolistID]: tasks[todolistID].map(t => t.id === taskID ? {...t, title: title} : t)
         })
     }
     const changeTodoListFilter = (filter: FilterValuesType, todolistID: string) => {
