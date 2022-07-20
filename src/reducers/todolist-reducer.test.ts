@@ -36,7 +36,7 @@ test('new todolist should be added', () => {
         {id: todolistId2, title: "What to buy", filter: "all"}
     ]
     // вызов тестируемой функции:
-    const endState = todolistsReducer(startState, AddTodolistAC(newTodoListTitle, v1()))
+    const endState = todolistsReducer(startState, AddTodolistAC(newTodoListTitle))
     // cверка результата c ожиданием:
     expect(endState.length).toBe(3);
     expect(endState[0].title).toBe(newTodoListTitle);
