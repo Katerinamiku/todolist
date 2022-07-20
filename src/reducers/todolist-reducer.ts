@@ -1,20 +1,21 @@
 import {FilterValuesType, TodoListType} from "../App";
+import {v1} from "uuid";
 //------------------TYPES----------------------
-type RemoveTodolistAT = {
+export type RemoveTodolistAT = {
     type: 'REMOVE_TODOLIST'
     id: string
 }
-type AddTodolistAT = {
+export type AddTodolistAT = {
     type: 'ADD_TODOLIST'
     title: string
-    id: string
+    todolistId: string
 }
-type ChangeTodoListTitleAT = {
+export type ChangeTodoListTitleAT = {
     type: 'CHANGE_TODOLIST_TITLE'
     title: string
     id: string
 }
-type ChangeTodolistFilterAT = {
+export type ChangeTodolistFilterAT = {
     type: 'CHANGE_TODOLIST_FILTER'
     id: string
     filter: FilterValuesType
@@ -33,7 +34,7 @@ export const todolistsReducer = (todolists: Array<TodoListType>, action: ActionT
         case 'REMOVE_TODOLIST':
             return todolists.filter(tl => tl.id !== action.id)
         case 'ADD_TODOLIST':
-            return [{id: action.id, title: action.title, filter: "all"}, ...todolists]
+            return [ {id: action.todolistId, title: action.title, filter: "all"}, ...todolists]
         case 'CHANGE_TODOLIST_TITLE':
             return todolists.map(tl => tl.id === action.id ? {...tl, title: action.title} : tl)
         case 'CHANGE_TODOLIST_FILTER':
@@ -49,13 +50,14 @@ export const RemoveTodolistAC = (id: string): RemoveTodolistAT => {
         id
     }
 }
-export const AddTodolistAC = (title: string, id: string): AddTodolistAT => {
+export const AddTodolistAC = (title: string): AddTodolistAT => {
     return {
         type: 'ADD_TODOLIST',
         title,
-        id
+        todolistId: v1()
     }
 }
+//создали id  в эксш креэйторе так как нужно чтобы он попал в оба рудьюсера
 export const ChangeTodoListTitleAC = (title: string, id: string): ChangeTodoListTitleAT => {
     return {
         type: 'CHANGE_TODOLIST_TITLE',
