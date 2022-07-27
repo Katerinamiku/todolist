@@ -5,8 +5,10 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import {createTheme, CssBaseline, ThemeProvider} from "@material-ui/core";
 import {teal, yellow} from "@material-ui/core/colors";
-
-
+import AppWithReducer from "./AppWithReducer";
+import AppWithRedux from "./AppWithRedux";
+import {Provider} from "react-redux";
+import {store} from "./reducers/store";
 
 
 const theme = createTheme({
@@ -14,17 +16,21 @@ const theme = createTheme({
         primary: teal,
         secondary: yellow,
         type: "dark"
-}
+    }
 })
 
 
 ReactDOM.render(
+    <Provider store={store}>
     <ThemeProvider theme={theme}>
         <CssBaseline/>
-    <App />
-    </ThemeProvider>,
+        {/*<App/>*/}
+        {/*<AppWithReducer/>*/}
+        <AppWithRedux/>
+    </ThemeProvider>
+    </Provider>,
     document.getElementById('root'));
- // App()
+// App()
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA

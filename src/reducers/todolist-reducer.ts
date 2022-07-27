@@ -20,6 +20,9 @@ export type ChangeTodolistFilterAT = {
     id: string
     filter: FilterValuesType
 }
+
+const initialState: Array<TodoListType> = []
+
 export type ActionType = RemoveTodolistAT | AddTodolistAT | ChangeTodoListTitleAT | ChangeTodolistFilterAT
 //----Можно через Return type когда типы сложно определить---------
 // export type ActionType =
@@ -29,18 +32,18 @@ export type ActionType = RemoveTodolistAT | AddTodolistAT | ChangeTodoListTitleA
 //     ReturnType<typeof ChangeTodolistFilterAT>
 
 //--------------------FUNC---------------------------
-export const todolistsReducer = (todolists: Array<TodoListType>, action: ActionType): Array<TodoListType> => {
+export const todolistsReducer = (state = initialState, action: ActionType): Array<TodoListType> => {
     switch (action.type) {
         case 'REMOVE_TODOLIST':
-            return todolists.filter(tl => tl.id !== action.id)
+            return state.filter(tl => tl.id !== action.id)
         case 'ADD_TODOLIST':
-            return [ {id: action.todolistId, title: action.title, filter: "all"}, ...todolists]
+            return [ {id: action.todolistId, title: action.title, filter: "all"}, ...state]
         case 'CHANGE_TODOLIST_TITLE':
-            return todolists.map(tl => tl.id === action.id ? {...tl, title: action.title} : tl)
+            return state.map(tl => tl.id === action.id ? {...tl, title: action.title} : tl)
         case 'CHANGE_TODOLIST_FILTER':
-            return todolists.map(tl => tl.id === action.id ? {...tl, filter: action.filter} : tl)
+            return state.map(tl => tl.id === action.id ? {...tl, filter: action.filter} : tl)
         default:
-            return todolists
+            return state
     }
 }
 //-----------------------AC------------------------------

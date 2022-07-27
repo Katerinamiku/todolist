@@ -7,18 +7,28 @@ import {
     todolistsReducer
 } from "./todolist-reducer";
 import {v1} from "uuid";
-//-----------------------REMOVE---------------------------
-test('correct todolist should be removed', () => {
-    // тестовые данные:
-    let todolistId1 = v1();
-    let todolistId2 = v1();
 
-    const startState: Array<TodoListType> = [
+// тестовые данные:
+let todolistId1: string;
+let todolistId2: string;
+
+let startState: Array<TodoListType>
+
+beforeEach(() => {
+    todolistId1 = v1();
+    todolistId2 = v1();
+
+    startState = [
         {id: todolistId1, title: "What to learn", filter: "all"},
         {id: todolistId2, title: "What to buy", filter: "all"}
     ]
+})
+
+//-----------------------REMOVE---------------------------
+test('correct todolist should be removed', () => {
+
     // вызов тестируемой функции:
-    const endState = todolistsReducer(startState,RemoveTodolistAC(todolistId2))
+    const endState = todolistsReducer(startState, RemoveTodolistAC(todolistId2))
     // cверка результата c ожиданием:
     expect(endState.length).toBe(1);
     expect(endState[0].id).toBe(todolistId1);
@@ -26,8 +36,7 @@ test('correct todolist should be removed', () => {
 //-------------------------ADD-----------------------------
 test('new todolist should be added', () => {
     // тестовые данные:
-    let todolistId1 = v1();
-    let todolistId2 = v1();
+
 
     const newTodoListTitle = 'NewTodolist';
 
@@ -44,8 +53,7 @@ test('new todolist should be added', () => {
 //-----------------------CHANGE TITLE------------------------
 test('correct todolist title should be changed', () => {
     // тестовые данные:
-    let todolistId1 = v1();
-    let todolistId2 = v1();
+
 
     const changedTodoListTitle = 'Changed Todolist Title';
 
@@ -53,7 +61,7 @@ test('correct todolist title should be changed', () => {
         {id: todolistId1, title: "What to learn", filter: "all"},
         {id: todolistId2, title: "What to buy", filter: "all"}
     ]
-      // вызов тестируемой функции:
+    // вызов тестируемой функции:
     const endState = todolistsReducer(startState, ChangeTodoListTitleAC(changedTodoListTitle, todolistId2))
     // cверка результата c ожиданием:
     expect(endState.length).toBe(2);
@@ -63,8 +71,7 @@ test('correct todolist title should be changed', () => {
 //----------------------CHANGE FILTER--------------------
 test('correct todolist should change filter', () => {
     // тестовые данные:
-    let todolistId1 = v1();
-    let todolistId2 = v1();
+
 
     const newFilterValue: FilterValuesType = 'completed';
 
@@ -73,7 +80,7 @@ test('correct todolist should change filter', () => {
         {id: todolistId2, title: "What to buy", filter: "all"}
     ]
     // вызов тестируемой функции:
-    const endState = todolistsReducer(startState,ChangeTodolistFilterAC(todolistId2, newFilterValue))
+    const endState = todolistsReducer(startState, ChangeTodolistFilterAC(todolistId2, newFilterValue))
     // cверка результата c ожиданием:
     expect(endState.length).toBe(2);
     expect(endState[1].filter).toBe(newFilterValue);
