@@ -4,17 +4,17 @@ import {tasksReducer} from "./tasks-reducer";
 
 //----------------adding todolist and task for it-----------
 test('ids should be equals', () => {
-    const startTasksState: TaskStateType = {};
-    const startTodolistsState: Array<TodoListType> = [];
+    const startTasksState: TaskStateType = {}; //стартовый сткйт для тасок
+    const startTodolistsState: Array<TodoListType> = []; //масиив тудулистов
 
     const action = AddTodolistAC("new todolist");
+//отправляем экшмн в два редьюсера
+    const endTasksState = tasksReducer(startTasksState, action) //фин состояние тасок
+    const endTodolistsState = todolistsReducer(startTodolistsState, action) //фин состо тудулистов
 
-    const endTasksState = tasksReducer(startTasksState, action)
-    const endTodolistsState = todolistsReducer(startTodolistsState, action)
-
-    const keys = Object.keys(endTasksState);
-    const idFromTasks = keys[0];
-    const idFromTodolists = endTodolistsState[0].id;
+    const keys = Object.keys(endTasksState); //метод обьекта: врзвр массив виде строк всех ключей
+    const idFromTasks = keys[0]; //должен быть 1 ключ и это ID которая в экшене
+    const idFromTodolists = endTodolistsState[0].id; //айдишки долджны быть равны
 
     expect(idFromTasks).toBe(action.todolistId);
     expect(idFromTodolists).toBe(action.todolistId);
