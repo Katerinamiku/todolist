@@ -4,7 +4,7 @@ import TodoList, {TaskType} from "./Todolist";
 import {v1} from "uuid";
 import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from "@material-ui/core";
 import {Menu} from "@material-ui/icons";
-import AddingInput from "./AddingInput";
+import AddingInput from "./Components/AddingInput";
 
 
 export type TodoListType = {
@@ -55,7 +55,7 @@ function App() {
         })
     }
     //------------------TDLists--------------------
-    const changeTodoListFilter = (filter: FilterValuesType, todolistID: string) => {
+    const changeTodoListFilter = (todolistID: string, filter: FilterValuesType) => {
         setTodolists(todolists.map(tl => tl.id === todolistID ? {...tl, filter: filter} : tl))
     }
     const changeTodoListTitle = (title: string, todolistID: string) => {

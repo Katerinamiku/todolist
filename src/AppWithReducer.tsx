@@ -4,8 +4,14 @@ import TodoList, {TaskType} from "./Todolist";
 import {v1} from "uuid";
 import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from "@material-ui/core";
 import {Menu} from "@material-ui/icons";
-import AddingInput from "./AddingInput";
-import {AddTodolistAC, ChangeTodoListTitleAC, RemoveTodolistAC, todolistsReducer} from "./reducers/todolist-reducer";
+import AddingInput from "./Components/AddingInput";
+import {
+    AddTodolistAC,
+    ChangeTodolistFilterAC,
+    ChangeTodoListTitleAC,
+    RemoveTodolistAC,
+    todolistsReducer
+} from "./reducers/todolist-reducer";
 import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC, tasksReducer} from "./reducers/tasks-reducer";
 
 
@@ -55,8 +61,8 @@ function AppWithReducer() {
         dispatchToTasks(changeTaskTitleAC(taskID, title, todolistID));
     }
     //------------------TDLists--------------------
-    const changeTodoListFilter = (filter: FilterValuesType) => {
-        dispatchToTodolists(AddTodolistAC(filter));
+    const changeTodoListFilter = (id: string, filter: FilterValuesType) => {
+        dispatchToTodolists(ChangeTodolistFilterAC(id, filter));
     }
     const changeTodoListTitle = (title: string, todolistID: string) => {
         dispatchToTodolists(ChangeTodoListTitleAC(title, todolistID));

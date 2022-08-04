@@ -1,15 +1,14 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from "react";
 import {Button, TextField} from "@material-ui/core";
 import {AddCircleOutline} from "@material-ui/icons";
-import s from './Todolist.module.css';
+
 
 type AddingInputPropsType = {
     addItem: (title: string) => void
-
 }
 
-function AddingInput(props: AddingInputPropsType) {
-
+export const AddingInput = React.memo((props: AddingInputPropsType) => {
+    console.log('input is called !')
     let [title, setTitle] = useState("")
     let [error, setError] = useState<string | null>(null)
 
@@ -17,7 +16,9 @@ function AddingInput(props: AddingInputPropsType) {
         setTitle(e.currentTarget.value)
     }
     const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
-        setError(null);
+        if (error !== null) {
+            setError(null);
+        }
         if (e.key === 'Enter') {
             addItem();
         }
@@ -53,6 +54,6 @@ function AddingInput(props: AddingInputPropsType) {
                 startIcon={<AddCircleOutline/>}
         >Add</Button>
     </div>
-}
+})
 
 export default AddingInput;
