@@ -1,7 +1,27 @@
-import {TaskStateType} from "../App";
-import {AddTodolistAC, RemoveTodolistAC, TodolistDomainType, todolistsReducer} from "./todolist-reducer";
+
+import {
+    AddTodolistAC,
+    RemoveTodolistAC,
+    setTodolistsAC,
+    TodolistDomainType,
+    todolistsReducer
+} from "./todolist-reducer";
 import {tasksReducer} from "./tasks-reducer";
 import {TasksPriorities, TaskStatuses} from "../api/todolists-api";
+import {TaskStateType} from "../AppWithRedux";
+
+
+//----------------setting todolists and tasks for it---------
+// test('todolists and empty tasks should be set to the state ', () => {
+//     const startTasksState: TaskStateType = {}; //стартовый сткйт для тасок
+//     const startTodolistsState: Array<TodolistDomainType> = []; //масиив тудулистов
+//
+//     const action = setTodolistsAC(startTodolistsState)
+//     const endState = todolistsReducer([], action)
+//
+//     expect(endState.length).toBe(2);
+//
+// });
 
 //----------------adding todolist and task for it-----------
 test('ids should be equals', () => {

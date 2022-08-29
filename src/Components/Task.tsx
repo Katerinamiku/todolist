@@ -15,10 +15,12 @@ export type TaskPropsType = {
 
 export const Task = React.memo((props: TaskPropsType) => {
 
-    const removeTask = useCallback(() => props.removeTask(props.task.id, props.todolistId), [props.todolistId, props.task.id, props.removeTask]);
+    const removeTask = useCallback(() => props.removeTask(props.task.id, props.todolistId), [props.todolistId, props.task.id]);
+
     const changeTaskStatus = useCallback((e: ChangeEvent<HTMLInputElement>) => {
         let newStatusValue =  e.currentTarget.checked;
         props.changeTaskStatus(props.task.id, newStatusValue ? TaskStatuses.Completed : TaskStatuses.New, props.todolistId)}, [props.task.id, props.todolistId]);
+
     const changeTaskTitle = useCallback((taskTitle: string) => {
         props.changeTaskTitle(props.task.id, taskTitle, props.todolistId)
     }, [props.changeTaskTitle, props.task.id, props.todolistId]);

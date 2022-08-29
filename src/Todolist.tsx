@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import EditableSpan from "./Components/EditableSpan";
 import {Button, IconButton, List} from "@material-ui/core";
 import {DeleteForever} from "@material-ui/icons";
@@ -6,6 +6,8 @@ import AddingInput from "./Components/AddingInput";
 import {Task} from "./Components/Task";
 import {TaskStatuses, TaskType} from "./api/todolists-api";
 import {FilterValuesType} from "./reducers/todolist-reducer";
+import {useDispatch} from "react-redux";
+import {fetchTasksTC} from "./reducers/tasks-reducer";
 
 type TodoListPropsType = {
     id: string
@@ -22,6 +24,13 @@ type TodoListPropsType = {
 }
 
 const TodoList = React.memo(function (props: TodoListPropsType) {
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(fetchTasksTC(props.id) as any)
+    }, [])
+
+
     //сделаем фльтотрыуию внутри тудулиста.
     let tasksForTodolist = props.tasks;
     if (props.filter === "active") {
@@ -33,11 +42,11 @@ const TodoList = React.memo(function (props: TodoListPropsType) {
 
     const tasksJSX = tasksForTodolist.length
         ? tasksForTodolist.map(t => <Task key={t.id}
-                                     task={t}
-                                     changeTaskStatus={props.changeTaskStatus}
-                                     changeTaskTitle={props.changeTaskTitle}
-                                     removeTask={props.removeTask}
-                                     todolistId={props.id}/>)
+                                          task={t}
+                                          changeTaskStatus={props.changeTaskStatus}
+                                          changeTaskTitle={props.changeTaskTitle}
+                                          removeTask={props.removeTask}
+                                          todolistId={props.id}/>)
         : <span>Your taskslist is empty</span>
 
     const createOnClickHandler = (filter: FilterValuesType): () => void => {
@@ -45,7 +54,8 @@ const TodoList = React.memo(function (props: TodoListPropsType) {
         return onClickHandler
     }
     const removeTodolist = useCallback(() => {
-        props.removeTodolist(props.id)}, [props.removeTodolist, props.id]);
+        props.removeTodolist(props.id)
+    }, [props.removeTodolist, props.id]);
     const changeTodoListTitle = useCallback((todoListTitle: string) => props.changeTodoListTitle(todoListTitle, props.id), [props.changeTodoListTitle, props.id]);
     //оборачиваем в usecallback, чтобы не переисовался Input при каких то жкйствиях внутри тудулиста, если дело
     // касается не самого Inputa
