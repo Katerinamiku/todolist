@@ -1,15 +1,5 @@
 import axios from "axios";
-
-const settings = {
-    withCredentials: true,
-    headers: {
-        "API-KEY": 'f27eec27-3207-4d58-92ee-5102237ee07d'
-    }
-}
-const instance = axios.create({
-    baseURL: 'https://social-network.samuraijs.com/api/1.1/',
-    ...settings
-})
+//---------------TYPES-----------------
 export type TodolistType = {
     id: string
     title: string
@@ -56,11 +46,23 @@ export type UpdateTaskModelType = {
     title: string
     description: string | null
     completed: boolean
-    status: number
-    priority: number
+    status: TaskStatuses
+    priority: TasksPriorities
     startDate: string | null
     deadline: string | null
 }
+
+//-------------API & Settings-----------
+const settings = {
+    withCredentials: true,
+    headers: {
+        "API-KEY": 'f27eec27-3207-4d58-92ee-5102237ee07d'
+    }
+}
+const instance = axios.create({
+    baseURL: 'https://social-network.samuraijs.com/api/1.1/',
+    ...settings
+})
 
 export const todolistsAPI = {
     getTodolists() {

@@ -1,8 +1,8 @@
 import React, {ChangeEvent, useCallback} from "react";
 import {Checkbox, IconButton, ListItem} from "@material-ui/core";
 import {Close, Favorite, FavoriteBorder} from "@material-ui/icons";
-import EditableSpan from "./EditableSpan";
-import {TaskStatuses, TaskType} from "../api/todolists-api";
+import EditableSpan from "../../../../Components/EditableSpan/EditableSpan";
+import {TaskStatuses, TaskType} from "../../../../api/todolists-api";
 
 
 export type TaskPropsType = {
