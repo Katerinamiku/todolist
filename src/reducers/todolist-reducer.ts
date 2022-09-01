@@ -1,16 +1,17 @@
 import {todolistsAPI, TodolistType} from "../api/todolists-api";
 import {Dispatch} from "redux";
-
 //------------------TYPES----------------------
 export type FilterValuesType = "all" | "active" | "completed"
 export type TodolistDomainType = TodolistType & {
     filter: FilterValuesType
 }
-export type ActionType = ReturnType<typeof RemoveTodolistAC> | ReturnType<typeof AddTodolistAC> | ReturnType<typeof ChangeTodoListTitleAC> | ReturnType<typeof ChangeTodolistFilterAC> | ReturnType<typeof setTodolistsAC>
-
+export type ActionType = ReturnType<typeof RemoveTodolistAC>
+    | ReturnType<typeof AddTodolistAC>
+    | ReturnType<typeof ChangeTodoListTitleAC>
+    | ReturnType<typeof ChangeTodolistFilterAC>
+    | ReturnType<typeof setTodolistsAC>
+//------------------FUNC---------------------------
 const initialState: Array<TodolistDomainType> = []
-
-//--------------------FUNC---------------------------
 export const todolistsReducer = (state = initialState, action: ActionType): Array<TodolistDomainType> => {
     switch (action.type) {
         case 'SET_TODOLISTS':
@@ -20,8 +21,7 @@ export const todolistsReducer = (state = initialState, action: ActionType): Arra
         case 'REMOVE_TODOLIST':
             return state.filter(tl => tl.id !== action.id)
         case 'ADD_TODOLIST':
-            const newTodolist: TodolistDomainType = {...action.todolist, filter: 'all'}
-            return [newTodolist, ...state]
+            return [{...action.todolist, filter: 'all'}, ...state]
         case 'CHANGE_TODOLIST_TITLE':
             return state.map(tl => tl.id === action.id ? {...tl, title: action.title} : tl)
         case 'CHANGE_TODOLIST_FILTER':
@@ -37,7 +37,6 @@ export const setTodolistsAC = (todolists: Array<TodolistType>) => {
         todolists
     } as const
 }
-
 export const RemoveTodolistAC = (id: string) => {
     return {
         type: 'REMOVE_TODOLIST',
@@ -50,7 +49,6 @@ export const AddTodolistAC = (todolist: TodolistType) => {
         todolist
     } as const
 }
-//создали id  в эксш креэйторе так как нужно чтобы он попал в оба рудьюсера
 export const ChangeTodoListTitleAC = (title: string, id: string) => {
     return {
         type: 'CHANGE_TODOLIST_TITLE',
@@ -71,8 +69,9 @@ export const fetchTodolistsTC = () => {
         todolistsAPI.getTodolists()
             .then((res) => {
                 dispatch(setTodolistsAC(res.data))
-            })}}
-
+            })
+    }
+}
 export const removeTodolistTC = (todolistID: string) => {
     return (dispatch: Dispatch) => {
         todolistsAPI.deleteTodolists(todolistID)

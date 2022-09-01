@@ -4,7 +4,7 @@ import {
     ChangeTodoListTitleAC, FilterValuesType,
     RemoveTodolistAC, setTodolistsAC, TodolistDomainType,
     todolistsReducer
-} from "./todolist-reducer";
+} from "../todolist-reducer";
 import {v1} from "uuid";
 
 
@@ -43,7 +43,7 @@ test('new todolist should be added', () => {
         {id: todolistId2, title: "What to buy", filter: "all", addedDate: '', order: 1}
     ]
     // вызов тестируемой функции:
-    const endState = todolistsReducer(startState, AddTodolistAC(newTodoListTitle))
+    const endState = todolistsReducer(startState, AddTodolistAC({id: todolistId1, title: newTodoListTitle, addedDate: '', order: 0}))
     // cверка результата c ожиданием:
     expect(endState.length).toBe(3);
     expect(endState[0].title).toBe(newTodoListTitle);

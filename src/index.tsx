@@ -4,7 +4,7 @@ import './index.css';
 import * as serviceWorker from './serviceWorker';
 import {createTheme, CssBaseline, ThemeProvider} from "@material-ui/core";
 import {teal, yellow} from "@material-ui/core/colors";
-import AppWithRedux from "./AppWithRedux";
+import App from "./App/App";
 import {Provider} from "react-redux";
 import {store} from "./reducers/store";
 
@@ -24,7 +24,7 @@ ReactDOM.render(
         <CssBaseline/>
         {/*<App/>*/}
         {/*<AppWithReducer/>*/}
-        <AppWithRedux/>
+        <App/>
     </ThemeProvider>
     </Provider>,
     document.getElementById('root'));

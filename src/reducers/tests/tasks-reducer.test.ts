@@ -1,8 +1,7 @@
+import {addTaskAC, updateTaskAC, removeTaskAC, tasksReducer, TaskStateType} from "../tasks-reducer";
+import {AddTodolistAC} from "../todolist-reducer";
+import {TasksPriorities, TaskStatuses} from "../../api/todolists-api";
 
-import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC, tasksReducer} from "./tasks-reducer";
-import {AddTodolistAC} from "./todolist-reducer";
-import {TasksPriorities, TaskStatuses} from "../api/todolists-api";
-import {TaskStateType} from "../AppWithRedux";
 
 let startState: TaskStateType;
 
@@ -56,21 +55,10 @@ test('correct task should be added to correct array', () => {
     expect(endState["todolistId2"][0].status).toBe(TaskStatuses.New);
 })
 
-//------------------------Change status------------------------
-test('status of specified task should be changed', () => {
-
-    const action = changeTaskStatusAC("2", TaskStatuses.New, "todolistId2");
-
-    const endState = tasksReducer(startState, action)
-
-    expect(endState["todolistId2"][1].status).toBe(TaskStatuses.New);
-    expect(endState["todolistId1"][1].status).toBe(TaskStatuses.Completed);
-});
-
 //--------------------Change task Title----------------
 test('title of specified task should be changed', () => {
 
-    const action = changeTaskTitleAC("2", 'cookies', "todolistId2");
+    const action = updateTaskAC("2", {id: "2", title: "cookies", status: TaskStatuses.Completed, todoListId: "todolistId2", description: '', completed: false, startDate: '', deadline: '', addedDate: '', order: 0, priority: TasksPriorities.Middle}, "todolistId2");
 
     const endState = tasksReducer(startState, action)
 
@@ -80,7 +68,8 @@ test('title of specified task should be changed', () => {
 //-------------Add new tasks property for new Todolist-------------
 test('new array should be added when new todolist is added', () => {
 
-    const action = AddTodolistAC("new todolist");
+    const action = AddTodolistAC( {id: 'lnln', title: "new todo", addedDate: '', order: 0}
+    );
 
     const endState = tasksReducer(startState, action)
 

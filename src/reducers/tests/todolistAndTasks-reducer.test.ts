@@ -5,10 +5,9 @@ import {
     setTodolistsAC,
     TodolistDomainType,
     todolistsReducer
-} from "./todolist-reducer";
-import {tasksReducer} from "./tasks-reducer";
-import {TasksPriorities, TaskStatuses} from "../api/todolists-api";
-import {TaskStateType} from "../AppWithRedux";
+} from "../todolist-reducer";
+import {tasksReducer, TaskStateType} from "../tasks-reducer";
+import {TasksPriorities, TaskStatuses} from "../../api/todolists-api";
 
 
 //----------------setting todolists and tasks for it---------
@@ -28,7 +27,7 @@ test('ids should be equals', () => {
     const startTasksState: TaskStateType = {}; //стартовый сткйт для тасок
     const startTodolistsState: Array<TodolistDomainType> = []; //масиив тудулистов
 
-    const action = AddTodolistAC("new todolist");
+    const action = AddTodolistAC({id: 'todolistId1', title: 'newTodoListTitle', addedDate: '', order: 0});
 //отправляем экшмн в два редьюсера
     const endTasksState = tasksReducer(startTasksState, action) //фин состояние тасок
     const endTodolistsState = todolistsReducer(startTodolistsState, action) //фин состо тудулистов
@@ -37,8 +36,8 @@ test('ids should be equals', () => {
     const idFromTasks = keys[0]; //должен быть 1 ключ и это ID которая в экшене
     const idFromTodolists = endTodolistsState[0].id; //айдишки долджны быть равны
 
-    expect(idFromTasks).toBe(action.todolistId);
-    expect(idFromTodolists).toBe(action.todolistId);
+    expect(idFromTasks).toBe(action.todolist.id);
+    expect(idFromTodolists).toBe(action.todolist.id);
 });
 //--------------removing todolist and his tasks-----------
 test('property with todolistId should be deleted', () => {

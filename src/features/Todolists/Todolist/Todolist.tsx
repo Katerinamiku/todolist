@@ -1,13 +1,13 @@
 import React, {useCallback, useEffect} from 'react';
-import EditableSpan from "./Components/EditableSpan";
+import EditableSpan from "../../../Components/EditableSpan/EditableSpan";
 import {Button, IconButton, List} from "@material-ui/core";
 import {DeleteForever} from "@material-ui/icons";
-import AddingInput from "./Components/AddingInput";
-import {Task} from "./Components/Task";
-import {TaskStatuses, TaskType} from "./api/todolists-api";
-import {FilterValuesType} from "./reducers/todolist-reducer";
+import AddingInput from "../../../Components/AddingInput/AddingInput";
+import {Task} from "./Task/Task";
+import {TaskStatuses, TaskType} from "../../../api/todolists-api";
+import {FilterValuesType} from "../../../reducers/todolist-reducer";
 import {useDispatch} from "react-redux";
-import {fetchTasksTC} from "./reducers/tasks-reducer";
+import {fetchTasksTC} from "../../../reducers/tasks-reducer";
 
 type TodoListPropsType = {
     id: string
@@ -29,8 +29,6 @@ const TodoList = React.memo(function (props: TodoListPropsType) {
     useEffect(() => {
         dispatch(fetchTasksTC(props.id) as any)
     }, [])
-
-
     //сделаем фльтотрыуию внутри тудулиста.
     let tasksForTodolist = props.tasks;
     if (props.filter === "active") {
@@ -62,7 +60,6 @@ const TodoList = React.memo(function (props: TodoListPropsType) {
     const addTask = useCallback((title: string) => {
         props.addTask(title, props.id)
     }, [props.addTask, props.id]);
-
 
     return (
         <div>
