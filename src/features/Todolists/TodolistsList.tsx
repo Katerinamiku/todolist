@@ -1,6 +1,6 @@
 import React, {useCallback, useEffect} from "react";
-import {useDispatch, useSelector} from "react-redux";
-import {AppRootStateType} from "../../reducers/store";
+import {useSelector} from "react-redux";
+import {AppRootStateType, useAppDispatch} from "../../reducers/store";
 import {
     addTodolistTC,
     ChangeTodolistFilterAC, changeTodolistTitleTC,
@@ -18,36 +18,36 @@ export const TodolistsList: React.FC = (props) => {
 // Храним данные в redux
     const todolists = useSelector<AppRootStateType, Array<TodolistDomainType>>(state => state.todolists)
     const tasks = useSelector<AppRootStateType, TaskStateType>(state => state.tasks)
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch()
 //----------------Tasks----------------
     //обернем в use Callback, чтобы резт запомниосяи не передавался новый  каждый раз
     const removeTask = useCallback(function (taskID: string, todolistID: string) {
-        dispatch(removeTaskTC(taskID, todolistID) as any)
+        dispatch(removeTaskTC(taskID, todolistID))
     }, []);
     const addTask = useCallback((title: string, todolistID: string) => {
-        dispatch(addTaskTC(title, todolistID) as any);
+        dispatch(addTaskTC(title, todolistID));
     }, []);
     const changeTaskStatus = useCallback((taskID: string, status: TaskStatuses, todolistID: string) => {
-        dispatch(updateTaskModelTC(taskID, {status}, todolistID) as any);
+        dispatch(updateTaskModelTC(taskID, {status}, todolistID));
     }, []);
     const changeTaskTitle = useCallback((taskID: string, title: string, todolistID: string) => {
-        dispatch(updateTaskModelTC(taskID, {title}, todolistID) as any);
+        dispatch(updateTaskModelTC(taskID, {title}, todolistID));
     }, []);
 //------------TDLists--------------------
     useEffect(() => {
-        dispatch(fetchTodolistsTC() as any)
+        dispatch(fetchTodolistsTC())
     }, [])
     const changeTodoListFilter = useCallback((id: string, filter: FilterValuesType) => {
         dispatch(ChangeTodolistFilterAC(id, filter));
     }, []);
     const changeTodoListTitle = useCallback((title: string, todolistID: string) => {
-        dispatch(changeTodolistTitleTC(title, todolistID) as any);
+        dispatch(changeTodolistTitleTC(title, todolistID));
     }, []);
     const removeTodolist = useCallback((todolistID: string) => {
-        dispatch(removeTodolistTC(todolistID) as any);
+        dispatch(removeTodolistTC(todolistID));
     }, []);
     const addTodoList = useCallback((title: string) => {
-        dispatch(addTodolistTC(title) as any);
+        dispatch(addTodolistTC(title));
         //помещаем в оба reducerа так как касается обоих
     }, []);
 

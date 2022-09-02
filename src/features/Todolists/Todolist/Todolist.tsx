@@ -6,8 +6,8 @@ import AddingInput from "../../../Components/AddingInput/AddingInput";
 import {Task} from "./Task/Task";
 import {TaskStatuses, TaskType} from "../../../api/todolists-api";
 import {FilterValuesType} from "../../../reducers/todolist-reducer";
-import {useDispatch} from "react-redux";
 import {fetchTasksTC} from "../../../reducers/tasks-reducer";
+import {useAppDispatch} from "../../../reducers/store";
 
 type TodoListPropsType = {
     id: string
@@ -24,10 +24,10 @@ type TodoListPropsType = {
 }
 
 const TodoList = React.memo(function (props: TodoListPropsType) {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
     useEffect(() => {
-        dispatch(fetchTasksTC(props.id) as any)
+        dispatch(fetchTasksTC(props.id))
     }, [])
     //сделаем фльтотрыуию внутри тудулиста.
     let tasksForTodolist = props.tasks;
