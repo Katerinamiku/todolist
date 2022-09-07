@@ -3,8 +3,10 @@ import {Button, TextField} from "@material-ui/core";
 import {AddCircleOutline} from "@material-ui/icons";
 
 
+
 export type AddingInputPropsType = {
     addItem: (title: string) => void
+    disabled?: boolean
 }
 
 export const AddingInput = React.memo((props: AddingInputPropsType) => {
@@ -43,12 +45,13 @@ export const AddingInput = React.memo((props: AddingInputPropsType) => {
                    error={!!error}
                    label="Enter name"
                    helperText={error}
+                   disabled={props.disabled}
         />
 
         <Button size={'small'}
                 color={'secondary'}
                 variant={'contained'}
-                disableElevation
+                disabled={props.disabled}
                 onClick={addItem}
                 style={{margin: '10px'}}
                 startIcon={<AddCircleOutline/>}

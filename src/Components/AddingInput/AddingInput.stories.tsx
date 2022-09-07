@@ -8,8 +8,11 @@ export default {
     title: 'Todolist/Input stories',
     component: AddingInput,
     argTypes: {
-        onClick: {
+        addItem: {
             description: 'Button of the form is clicked'
+        },
+        disabled: {
+            description: 'form is disabled'
         }
     }
 } as ComponentMeta<typeof AddingInput>;
@@ -20,4 +23,8 @@ const Template: ComponentStory<typeof AddingInput> = (args) => <AddingInput {...
 export const InputExample = Template.bind({});
 InputExample.args = {
     addItem: action('Button of the form is clicked')
+}
+export const FormIsDisabledExample = Template.bind({});
+FormIsDisabledExample.args = {
+    disabled: true
 }

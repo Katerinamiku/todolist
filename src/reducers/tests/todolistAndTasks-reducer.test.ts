@@ -43,14 +43,14 @@ test('ids should be equals', () => {
 test('property with todolistId should be deleted', () => {
     const startState: TaskStateType = {
         "todolistId1": [
-            {id: "1", title: "CSS", status: TaskStatuses.New, todoListId: "todolistId1", description: '', completed: false, startDate: '', deadline: '', addedDate: '', order: 0, priority: TasksPriorities.Middle},
-            {id: "2", title: "JS", status: TaskStatuses.Completed, todoListId: "todolistId1", description: '', completed: false, startDate: '', deadline: '', addedDate: '', order: 0, priority: TasksPriorities.Middle},
-            {id: "3", title: "JS", status: TaskStatuses.New, todoListId: "todolistId1", description: '', completed: false, startDate: '', deadline: '', addedDate: '', order: 0, priority: TasksPriorities.Middle}
+            {id: "1", title: "CSS", status: TaskStatuses.New, todoListId: "todolistId1", description: '', completed: false, startDate: '', deadline: '', addedDate: '', order: 0, priority: TasksPriorities.Middle, entityStatus: 'idle'},
+            {id: "2", title: "JS", status: TaskStatuses.Completed, todoListId: "todolistId1", description: '', completed: false, startDate: '', deadline: '', addedDate: '', order: 0, priority: TasksPriorities.Middle, entityStatus: 'idle'},
+            {id: "3", title: "JS", status: TaskStatuses.New, todoListId: "todolistId1", description: '', completed: false, startDate: '', deadline: '', addedDate: '', order: 0, priority: TasksPriorities.Middle, entityStatus: 'idle'}
         ],
         "todolistId2": [
-            {id: "1", title: "bread", status: TaskStatuses.New, todoListId: "todolistId2", description: '', completed: false, startDate: '', deadline: '', addedDate: '', order: 0, priority: TasksPriorities.Middle},
-            {id: "2", title: "milk", status: TaskStatuses.Completed, todoListId: "todolistId2", description: '', completed: false, startDate: '', deadline: '', addedDate: '', order: 0, priority: TasksPriorities.Middle},
-            {id: "3", title: "tea", status: TaskStatuses.New, todoListId: "todolistId2", description: '', completed: false, startDate: '', deadline: '', addedDate: '', order: 0, priority: TasksPriorities.Middle}
+            {id: "1", title: "bread", status: TaskStatuses.New, todoListId: "todolistId2", description: '', completed: false, startDate: '', deadline: '', addedDate: '', order: 0, priority: TasksPriorities.Middle, entityStatus: 'idle'},
+            {id: "2", title: "milk", status: TaskStatuses.Completed, todoListId: "todolistId2", description: '', completed: false, startDate: '', deadline: '', addedDate: '', order: 0, priority: TasksPriorities.Middle, entityStatus: 'idle'},
+            {id: "3", title: "tea", status: TaskStatuses.New, todoListId: "todolistId2", description: '', completed: false, startDate: '', deadline: '', addedDate: '', order: 0, priority: TasksPriorities.Middle, entityStatus: 'idle'}
         ]
     };
 
