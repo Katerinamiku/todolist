@@ -13,11 +13,18 @@ import {TaskStatuses} from "../../api/todolists-api";
 import {Grid, Paper} from "@material-ui/core";
 import AddingInput from "../../Components/AddingInput/AddingInput";
 import TodoList from "./Todolist/Todolist";
+import {RequestStatusType} from "../../App/app-reducer";
 
-export const TodolistsList: React.FC = (props) => {
+type PropsType = {
+    appStatus: RequestStatusType
+    demo?: boolean
+}
+
+export const TodolistsList: React.FC<PropsType> = ({demo = false, appStatus}) => {
 // Храним данные в redux
     const todolists = useSelector<AppRootStateType, Array<TodolistDomainType>>(state => state.todolists)
     const tasks = useSelector<AppRootStateType, TaskStateType>(state => state.tasks)
+    const status = useSelector<AppRootStateType, RequestStatusType>(state => state.app.status)
     const dispatch = useAppDispatch()
 //----------------Tasks----------------
     //обернем в use Callback, чтобы резт запомниосяи не передавался новый  каждый раз
@@ -35,6 +42,9 @@ export const TodolistsList: React.FC = (props) => {
     }, []);
 //------------TDLists--------------------
     useEffect(() => {
+        if (demo) {
+            return
+        }
         dispatch(fetchTodolistsTC())
     }, [])
     const changeTodoListFilter = useCallback((id: string, filter: FilterValuesType) => {
@@ -52,7 +62,8 @@ export const TodolistsList: React.FC = (props) => {
     }, []);
 
     return (
-        <> <Grid container style={{padding: "20px 0"}}> <AddingInput addItem={addTodoList}/></Grid>
+        <> <Grid container style={{padding: "20px 0"}}>
+            <AddingInput addItem={addTodoList} disabled={appStatus === 'loading'}/></Grid>
             <Grid container spacing={4}>
                 {
                     todolists.map(tl => {
@@ -60,9 +71,7 @@ export const TodolistsList: React.FC = (props) => {
                             <Grid item key={tl.id}>
                                 <Paper elevation={6} style={{padding: "20px"}}>
                                     <TodoList
-                                        id={tl.id}
-                                        title={tl.title}
-                                        filter={tl.filter}
+                                        todolist={tl}
                                         tasks={tasks[tl.id]}
 
                                         addTask={addTask}
@@ -72,6 +81,7 @@ export const TodolistsList: React.FC = (props) => {
                                         removeTodolist={removeTodolist}
                                         changeTodoListTitle={changeTodoListTitle}
                                         changeTodoListFilter={changeTodoListFilter}
+                                        demo={demo}
                                     />
                                 </Paper>
                             </Grid>
