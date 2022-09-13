@@ -7,6 +7,7 @@ import {teal, yellow} from "@material-ui/core/colors";
 import App from "./App/App";
 import {Provider} from "react-redux";
 import {store} from "./reducers/store";
+import {BrowserRouter} from "react-router-dom";
 
 
 const theme = createTheme({
@@ -19,14 +20,16 @@ const theme = createTheme({
 
 
 ReactDOM.render(
-    <Provider store={store}>
-    <ThemeProvider theme={theme}>
-        <CssBaseline/>
-        {/*<App/>*/}
-        {/*<AppWithReducer/>*/}
-        <App/>
-    </ThemeProvider>
-    </Provider>,
+    <BrowserRouter>
+        <Provider store={store}>
+            <ThemeProvider theme={theme}>
+                <CssBaseline/>
+                <App/>
+            </ThemeProvider>
+        </Provider>
+    </BrowserRouter>,
     document.getElementById('root'));
 
 serviceWorker.unregister();
+
+
