@@ -1,19 +1,18 @@
 import React, {useCallback, useEffect} from "react";
-import {useSelector} from "react-redux";
-import {AppRootStateType, useAppDispatch} from "../../reducers/store";
+import {useAppSelector, useAppDispatch} from "../../reducers/store";
 import {
     addTodolistTC,
     ChangeTodolistFilterAC, changeTodolistTitleTC,
     fetchTodolistsTC,
     FilterValuesType, removeTodolistTC,
-    TodolistDomainType
 } from "../../reducers/todolist-reducer";
-import {addTaskTC, removeTaskTC, TaskStateType, updateTaskModelTC} from "../../reducers/tasks-reducer";
+import {addTaskTC, removeTaskTC, updateTaskModelTC} from "../../reducers/tasks-reducer";
 import {TaskStatuses} from "../../api/todolists-api";
 import {Grid, Paper} from "@material-ui/core";
 import AddingInput from "../../Components/AddingInput/AddingInput";
 import TodoList from "./Todolist/Todolist";
 import {RequestStatusType} from "../../App/app-reducer";
+import {Navigate} from "react-router-dom";
 
 type PropsType = {
     appStatus: RequestStatusType
@@ -21,10 +20,10 @@ type PropsType = {
 }
 
 export const TodolistsList: React.FC<PropsType> = ({demo = false, appStatus}) => {
-// Храним данные в redux
-    const todolists = useSelector<AppRootStateType, Array<TodolistDomainType>>(state => state.todolists)
-    const tasks = useSelector<AppRootStateType, TaskStateType>(state => state.tasks)
-    const status = useSelector<AppRootStateType, RequestStatusType>(state => state.app.status)
+
+    const todolists = useAppSelector(state => state.todolists)
+    const tasks = useAppSelector(state => state.tasks)
+    const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
     const dispatch = useAppDispatch()
 //----------------Tasks----------------
     //обернем в use Callback, чтобы резт запомниосяи не передавался новый  каждый раз
@@ -42,7 +41,7 @@ export const TodolistsList: React.FC<PropsType> = ({demo = false, appStatus}) =>
     }, []);
 //------------TDLists--------------------
     useEffect(() => {
-        if (demo) {
+        if (demo || !isLoggedIn) {
             return
         }
         dispatch(fetchTodolistsTC())
@@ -60,6 +59,11 @@ export const TodolistsList: React.FC<PropsType> = ({demo = false, appStatus}) =>
         dispatch(addTodolistTC(title));
         //помещаем в оба reducerа так как касается обоих
     }, []);
+
+//--------login check---------
+    if (!isLoggedIn) {
+        return <Navigate to={'/login'}/>
+    }
 
     return (
         <> <Grid container style={{padding: "20px 0"}}>
