@@ -2,7 +2,7 @@ import {AppThunkType} from "../reducers/store";
 import {authAPI} from "../api/todolists-api";
 import {handleServerAppError, handleServerNetworkError} from "../utils/errorUtils";
 import axios from "axios";
-import {setIsLoggedInAC} from "../reducers/authLogin-reducer";
+import {setIsLoggedInAC} from "../reducers/login-reducer";
 
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
 export type ErrorType = string | null
