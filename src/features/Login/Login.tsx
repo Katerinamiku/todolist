@@ -10,7 +10,7 @@ import Button from '@mui/material/Button';
 import {useFormik} from "formik";
 import {Paper} from "@material-ui/core";
 import {AppRootStateType, useAppDispatch} from "../../reducers/store";
-import {loginTC} from "../../reducers/authLogin-reducer";
+import {loginTC} from "../../reducers/login-reducer";
 import {useSelector} from "react-redux";
 import {Navigate} from "react-router-dom";
 
@@ -54,9 +54,9 @@ export const Login = () => {
 
     return <Grid container justifyContent={'center'}>
         <Grid item justifyContent={'center'}>
-            <Paper elevation={7} style={{padding: "30px"}}>
+            <Paper elevation={7} style={{padding: "30px", marginTop: '30px'}}>
                 <form onSubmit={formik.handleSubmit}>
-                    <FormControl>
+                    <FormControl >
                         <FormLabel>
                             <p>To log in get registered
                                 <a href={'https://social-network.samuraijs.com/'}
@@ -67,7 +67,7 @@ export const Login = () => {
                             <p>Email: free@samuraijs.com</p>
                             <p>Password: free</p>
                         </FormLabel>
-                        <FormGroup>
+                        <FormGroup >
                             <TextField label="Email"
                                        margin="normal"
                                        hiddenLabel

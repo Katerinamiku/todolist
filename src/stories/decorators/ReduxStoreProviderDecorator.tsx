@@ -7,7 +7,7 @@ import {v1} from "uuid";
 import {TasksPriorities, TaskStatuses} from "../../api/todolists-api";
 import {appReducer} from "../../App/app-reducer";
 import thunkMiddleware from "redux-thunk";
-import {authReducer} from "../../reducers/authLogin-reducer";
+import {authReducer} from "../../reducers/login-reducer";
 
 
 const rootReducer = combineReducers({

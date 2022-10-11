@@ -4,7 +4,7 @@ import {applyMiddleware, combineReducers, legacy_createStore} from 'redux';
 import thunkMiddleware, {ThunkAction, ThunkDispatch} from 'redux-thunk';
 import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
 import {appReducer, AppReducerActionsType} from "../App/app-reducer";
-import {AuthLoginActionsType, authReducer} from "./authLogin-reducer";
+import {AuthLoginActionsType, authReducer} from "./login-reducer";
 
 // объединяя reducer-ы с помощью combineReducers,
 // мы задаём структуру нашего единственного объекта-состояния
