@@ -20,7 +20,7 @@ App is based on Social Network API (https://social-network.samuraijs.com/) with 
 ## Demo
 
 Demo version is avaliable
-GithubPages:  https://katerinamiku.github.io/todolist
+on GithubPages:  https://katerinamiku.github.io/todolist
 
 ## Usage
 
