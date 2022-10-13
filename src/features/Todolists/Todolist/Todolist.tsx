@@ -48,7 +48,7 @@ const TodoList = React.memo(function ({demo = false, ...props}: TodoListPropsTyp
                                           removeTask={props.removeTask}
                                           todolistId={props.todolist.id}
                                           />)
-        : <span>Your taskslist is empty</span>
+        : <span>Your task list is empty</span>
 
     const createOnClickHandler = (filter: FilterValuesType): () => void => {
         const onClickHandler = () => props.changeTodoListFilter(props.todolist.id, filter)
