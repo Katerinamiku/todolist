@@ -1,8 +1,8 @@
 # To-do List App
 
-React app for simple task management. 
+React app for simple task management. Development in progress.
 
-You can create/edit/delete task lists and tasks; check if task 'is done', filter tasks. Switch to dark/light mode.
+You can create/edit/delete task lists and tasks; check task 'is done', filter tasks. Switch to dark/light mode.
 App is based on Social Network API (https://social-network.samuraijs.com/) with CORS. 
 
 <img src="https://imgur.com/bbuiy7S.png" height="300"/>
@@ -21,6 +21,7 @@ App is based on Social Network API (https://social-network.samuraijs.com/) with 
 
 Demo version is avaliable
 on GithubPages:  https://katerinamiku.github.io/todolist
+<br/>To log in, please, follow instructions, described on Login page.
 
 ## Usage
 
