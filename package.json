@@ -34,6 +34,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "storybook": "start-storybook -p 9009",
     "build-storybook": "build-storybook -s public",
     "jest:integration": "jest -c integration/jest.config.js",
@@ -80,6 +82,7 @@
     "@storybook/testing-library": "^0.0.13",
     "@types/uuid": "^8.3.4",
     "babel-plugin-named-exports-order": "^0.0.2",
+    "gh-pages": "^4.0.0",
     "jest-image-snapshot": "^5.1.0",
     "jest-puppeteer": "^6.1.1",
     "prop-types": "^15.8.1",
@@ -87,5 +90,6 @@
     "start-server-and-test": "^1.14.0",
     "uuid": "^8.3.2",
     "webpack": "^5.74.0"
-  }
+  },
+  "homepage": "https://katerinamiku.github.io/todolist/"
 }
