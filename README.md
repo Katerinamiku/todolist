@@ -3,6 +3,7 @@
 React app for simple task management. 
 
 You can create/edit/delete task lists and tasks; check if task 'is done', filter tasks. Switch to dark/light mode.
+App is based on Social Network API (https://social-network.samuraijs.com/) with CORS. 
 
 <img src="https://imgur.com/bbuiy7S.png" height="300"/>
 
