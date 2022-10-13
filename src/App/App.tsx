@@ -4,7 +4,7 @@ import {
     AppBar,
     Button,
     Container,
-    createTheme,
+    createTheme, CssBaseline,
     IconButton,
     LinearProgress, ThemeProvider,
     Toolbar,
@@ -23,6 +23,7 @@ import {logoutTC} from "../reducers/login-reducer";
 
 type PropsType = {
     demo?: boolean
+
 }
 
 function App({demo = false}: PropsType) {
@@ -71,24 +72,39 @@ function App({demo = false}: PropsType) {
             secondary: {
                 main: '#4E91C6',
                 light: '#fffffc',
+                dark: '#65a0e5',
             },
             error: {
                 main: '#f44336',
                 dark: '#8B1C00',
+                light: 'rgba(245,143,146,0.99)',
+
             },
             warning: {
                 main: '#ff9800',
+                light: '#e9ce79',
                 dark: '#A93800',
+                contrastText: 'rgba(255,24,109,0.98)',
             },
             success: {
                 main: '#75DAA9',
+                light: '#73ff69',
+                dark: '#449944',
+                contrastText: 'rgba(100,240,240,0.95)',
             },
             info: {
-                main: '#935892',
+                main: '#b268b1',
+                light: '#e898fc',
+                dark: '#945bae',
+            },
+            text: {
+                hint: 'rgba(255,253,253,0.98)',
+                disabled: 'rgb(203,223,215)',
             },
         },
     })
     const selectedTheme = darkMode ? darkTheme : lightTheme;
+    const themeToggle = () => setDarkMode(!darkMode);
 //------------------------------------------------------
 
     const logoutHandler = () => {
@@ -107,17 +123,18 @@ function App({demo = false}: PropsType) {
 
     return (
         <ThemeProvider theme={selectedTheme}>
+            <CssBaseline/>
             <div className="App">
                 <ErrorSnackbar/>
                 <AppBar position="static">
                     <Toolbar style={{justifyContent: "space-between"}}>
                         <IconButton edge="start" color="inherit" aria-label="menu">
-                            <IconButton onClick={()=>setDarkMode(!darkMode)}>
+                            <IconButton onClick={themeToggle}>
                                 {darkMode ? <WbSunnyOutlined /> : <Brightness3Outlined />}
                             </IconButton>
                         </IconButton>
-                        <Typography variant="h6">
-                            Todolists
+                        <Typography variant="h5">
+                            My to-do lists
                         </Typography>
                         <div>
                             {isLoggedIn &&
