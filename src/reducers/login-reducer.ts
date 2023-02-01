@@ -10,7 +10,7 @@ import {
   handleServerAppError,
   handleServerNetworkError,
 } from "../utils/errorUtils";
-import axios, { AxiosError } from "axios";
+import { AxiosError } from "axios";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { PayloadAction } from "@reduxjs/toolkit/dist/createAction";
 
@@ -64,11 +64,12 @@ export const loginTC = createAsyncThunk<
   }
 >("auth/login", async (param, thunkAPI) => {
   const { dispatch, rejectWithValue } = thunkAPI;
-  dispatch(setAppStatusAC("loading"));
+  dispatch(setAppStatusAC({ status: "loading" }));
   try {
     const res = await authAPI.login(param);
     if (res.data.resultCode === resultCodes.success) {
-      dispatch(setAppStatusAC("succeeded"));
+      dispatch(setIsLoggedInAC({ value: true }));
+      dispatch(setAppStatusAC({ status: "succeeded" }));
       return;
     } else {
       handleServerAppError(res.data, dispatch);
@@ -107,13 +108,13 @@ export const logoutTC = createAsyncThunk(
   "auth/logout",
   async (param, thunkAPI) => {
     const { dispatch, rejectWithValue } = thunkAPI;
-    dispatch(setAppStatusAC("loading"));
+    dispatch(setAppStatusAC({ status: "loading" }));
     try {
       const res = await authAPI.logout();
       console.log(res);
       if (res.data.resultCode === resultCodes.success) {
         dispatch(setIsLoggedInAC({ value: false }));
-        dispatch(setAppStatusAC("succeeded"));
+        dispatch(setAppStatusAC({ status: "succeeded" }));
         return;
       } else {
         return rejectWithValue(null);
@@ -125,7 +126,7 @@ export const logoutTC = createAsyncThunk(
     }
   }
 );
-//------------------ types------------------
 export type AuthLoginActionsType =
   | ReturnType<typeof setAppStatusAC>
-  | ReturnType<typeof setAppErrorAC>;
+  | ReturnType<typeof setAppErrorAC>
+  | ReturnType<typeof setIsLoggedInAC>;
