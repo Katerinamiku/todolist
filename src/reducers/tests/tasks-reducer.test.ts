@@ -105,7 +105,7 @@ beforeEach(() => {
 
 //-----------------------REMOVE---------------------------
 test("correct task should be deleted from correct array", () => {
-  const action = removeTaskAC("2", "todolistId2");
+  const action = removeTaskAC({ taskId: "2", todolistId: "todolistId2" });
   const endState = tasksReducer(startState, action);
 
   expect(endState).toEqual({
@@ -188,22 +188,23 @@ test("correct task should be deleted from correct array", () => {
 
 //-------------------------ADD-----------------------------
 test("correct task should be added to correct array", () => {
-  const action = addTaskAC(
-    {
-      id: "1",
-      title: "bread",
-      status: TaskStatuses.New,
-      todoListId: "todolistId2",
-      description: "",
-      completed: false,
-      startDate: "",
-      deadline: "",
-      addedDate: "",
-      order: 0,
-      priority: TasksPriorities.Middle,
-    },
-    "todolistId1"
-  );
+  const task = {
+    id: "1",
+    title: "bread",
+    status: TaskStatuses.New,
+    todoListId: "todolistId2",
+    description: "",
+    completed: false,
+    startDate: "",
+    deadline: "",
+    addedDate: "",
+    order: 0,
+    priority: TasksPriorities.Middle,
+  };
+  const action = addTaskAC({
+    task: task,
+    todolistId: "todolistId1",
+  });
 
   const endState = tasksReducer(startState, action);
 
@@ -216,23 +217,24 @@ test("correct task should be added to correct array", () => {
 
 //--------------------Change task Title----------------
 test("title of specified task should be changed", () => {
-  const action = updateTaskAC(
-    "2",
-    {
-      id: "2",
-      title: "cookies",
-      status: TaskStatuses.Completed,
-      todoListId: "todolistId2",
-      description: "",
-      completed: false,
-      startDate: "",
-      deadline: "",
-      addedDate: "",
-      order: 0,
-      priority: TasksPriorities.Middle,
-    },
-    "todolistId2"
-  );
+  const task = {
+    id: "2",
+    title: "cookies",
+    status: TaskStatuses.Completed,
+    todoListId: "todolistId2",
+    description: "",
+    completed: false,
+    startDate: "",
+    deadline: "",
+    addedDate: "",
+    order: 0,
+    priority: TasksPriorities.Middle,
+  };
+  const action = updateTaskAC({
+    taskId: "2",
+    task: task,
+    todolistId: "todolistId2",
+  });
 
   const endState = tasksReducer(startState, action);
 
